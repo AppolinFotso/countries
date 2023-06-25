@@ -5,6 +5,7 @@ import data from "./data.json";
 import { useState } from "react";
 import { nanoid } from "nanoid";
 import Search from "./Search";
+import Select from "./Select";
 
 function App() {
   const [countryInfo, setCountryInfo] = useState(data);
@@ -23,6 +24,13 @@ function App() {
       setCountryInfo(newCountryList);
     }
   }
+  //
+  function select(value) {
+    console.log(value);
+    const countryByRegion = countryInfo.filter((el) => el.region === value);
+    setCountryInfo(countryByRegion);
+  }
+  //
   const countrydata = countryInfo.map((country) => {
     return (
       <EachCountryInfo
@@ -41,7 +49,10 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
         <p>Country Flags</p>
       </header>
-      <Search search={search} />
+      <div className="sel-search">
+        <Search search={search} />
+        <Select countryInfo={countryInfo} select={select} />
+      </div>
       <div className="countries-container">{countrydata}</div>
     </div>
   );
